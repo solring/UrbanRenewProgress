@@ -19,7 +19,7 @@ class SolringWebsite < Sinatra::Base
         major = params[:major]
         minor = params[:minor]
 
-        if mahor.length != 4
+        if major.length != 4 or minor.length != 4
             return 'ERROR: invalid number'
         end
     
@@ -47,7 +47,7 @@ class SolringWebsite < Sinatra::Base
         sec = params[:sec]
         major = params[:major]
         minor = params[:minor]
-        if mahor.length != 4
+        if major.length != 4 or minor.length != 4
             return 'ERROR: invalid number'
         end
         

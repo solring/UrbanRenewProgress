@@ -37,8 +37,6 @@ def getArguments2(content, form)
     if ev.length >= 1
         evalidate = ev[0]["value"]
     end
-    puts "vs: #{viewstate}"
-    puts "ev: #{evalidate}"
     return viewstate, evalidate
 end
 
@@ -52,7 +50,7 @@ def filterMsg(content)
     end
 
 end
-def getURProgress(dist, sec, num_major, num_minor)
+def getURProgress(sec, num_major, num_minor)
     
     uri1 = 'http://www.gis.udd.taipei.gov.tw/r_progress.aspx'
     uri2 = "http://163.29.37.171/planMap/showland_uro.aspx"
@@ -123,12 +121,11 @@ def getURProgress(dist, sec, num_major, num_minor)
     body2['__EVENTVALIDATION'] = evalidate
 
     res = client.post(uri2, body2)
-    puts res.content
-    #puts "status: #{res.status}"
+    #puts res.content
     return filterMsg(res.content)
 end
 
-puts getURProgress('中正區', '永昌段一小段', '0031', '0004')
+#puts getURProgress('永昌段一小段', '0031', '0004')
 
 
 

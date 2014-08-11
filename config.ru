@@ -1,6 +1,6 @@
 require "rubygems"
 require "sinatra"
-require "app"
+require "./app"
 
 run SolringWebsite.new
 
