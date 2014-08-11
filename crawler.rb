@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 require 'rubygems'
 require 'httpclient'
-#require 'mechanize'
+require 'nokogiri'
 
 def getArguments(content)
+
     re_viewstate = /id="__VIEWSTATE" value="(.*?)"/
     re_eventvalidation = /id="__EVENTVALIDATION" value="(.*?)"/
     viewstate = ""
@@ -22,16 +23,35 @@ def getArguments(content)
     return viewstate, evalidate
 end
 
-def filterMsg(content)
-    reg = /<span id="labMsg" .*?>(.*?)<\/font><\/span>"/
-    msg = ""
-    matches = reg.match(content)
-    if matches != nil
-        msg = matches[1]
+
+def getArguments2(content, form)
+    
+    doc = Nokogiri::HTML(content)
+    viewstate = ""
+    evalidate = ""
+    vs = doc.css("##{form} #__VIEWSTATE")
+    ev = doc.css("##{form} #__EVENTVALIDATION")
+    if vs.length >= 1
+        viewstate = vs[0]["value"]
     end
-    return msg
+    if ev.length >= 1
+        evalidate = ev[0]["value"]
+    end
+    puts "vs: #{viewstate}"
+    puts "ev: #{evalidate}"
+    return viewstate, evalidate
 end
 
+def filterMsg(content)
+    doc = Nokogiri::HTML(content)
+    msg = doc.css("#labMsg")
+    if msg.length < 1
+        return "ERROR: span labMsg does not exist"
+    else
+        return msg.text
+    end
+
+end
 def getURProgress(dist, sec, num_major, num_minor)
     
     uri1 = 'http://www.gis.udd.taipei.gov.tw/r_progress.aspx'
@@ -80,30 +100,32 @@ def getURProgress(dist, sec, num_major, num_minor)
 
     content = res.content
     
-    viewstate, evalidate = getArguments(content)
+    #viewstate, evalidate = getArguments(content)
+    viewstate, evalidate = getArguments2(content, "aspnetForm")
     
-    #puts '--------------- POST 1 ------------------'
+    puts '--------------- POST 1 ------------------'
 
     body1['__VIEWSTATE'] = viewstate
     body1['__EVENTVALIDATION'] = evalidate
 
     res = client.post(uri1, body1)
 
-    #puts '--------------- GET 2 --------------------'
+    puts '--------------- GET 2 --------------------'
     res = client.get('http://163.29.37.171/planMap/showland_uro.aspx', header)
     content = res.content
-    
-    #puts '--------------- POST 2 ------------------'
-    viewstate, evalidate = getArguments(content)
+    puts content
+
+    puts '--------------- POST 2 ------------------'
+    #viewstate, evalidate = getArguments(content)
+    viewstate, evalidate = getArguments2(content, "Form1")
 
     body2['__VIEWSTATE'] = viewstate
     body2['__EVENTVALIDATION'] = evalidate
 
     res = client.post(uri2, body2)
-    content = res.content.sub("\n", "")
-    puts content
+    puts res.content
     #puts "status: #{res.status}"
-    return filterMsg(content)
+    return filterMsg(res.content)
 end
 
 puts getURProgress('中正區', '永昌段一小段', '0031', '0004')

@@ -18,8 +18,12 @@ class SolringWebsite < Sinatra::Base
         sec = params[:sec]
         major = params[:major]
         minor = params[:minor]
+
+        if mahor.length != 4
+            return 'ERROR: invalid number'
+        end
     
-        #getURProgress(sec, major, minor)
+        return getURProgress(sec, major, minor)
     
     end
 
@@ -29,12 +33,12 @@ class SolringWebsite < Sinatra::Base
         sec = params[:sec]
         num = params[:num]
         if num.length != 8
-            return 'invalid number'
+            return 'ERROR: invalid number'
         end
         major = num[0..3]
         minor = num[4..7]
 
-        #getURProgress(sec, major, minor)
+        return getURProgress(sec, major, minor)
         #erb :index, :locals => {:pictures => pics}
     end
     
@@ -43,20 +47,23 @@ class SolringWebsite < Sinatra::Base
         sec = params[:sec]
         major = params[:major]
         minor = params[:minor]
+        if mahor.length != 4
+            return 'ERROR: invalid number'
+        end
         
-        #getURProgress(sec, major, minor)
+        return getURProgress(sec, major, minor)
     end
     
     get '/bySec/:sec/:major/:minor' do
         sec = params[:sec]
         num = params[:num]
         if num.length != 8
-            return 'invalid number'
+            return 'ERROR: invalid number'
         end
         major = num[0..3]
         minor = num[4..7]
         
-        #getURProgress(sec, major, minor)
+        return getURProgress(sec, major, minor)
     end
 
   run! if app_file == $0
