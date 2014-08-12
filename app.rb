@@ -13,6 +13,10 @@ class UrbanRenewProgress < Sinatra::Base
 	set :static, true
 	set :public_dir, File.dirname(__FILE__)+'/static'
 
+    get '/' do
+        send_file 'views/index.html'
+    end
+
     get '/byArea/:dist/:sec/:major/:minor' do
         dist = params[:dist]
         sec = params[:sec]
