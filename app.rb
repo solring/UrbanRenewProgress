@@ -7,7 +7,7 @@ require 'sinatra'
 require 'sinatra/content_for'
 require './crawler'
 
-class SolringWebsite < Sinatra::Base
+class UrbanRenewProgress < Sinatra::Base
 	helpers Sinatra::ContentFor
 	
 	set :static, true
@@ -54,7 +54,7 @@ class SolringWebsite < Sinatra::Base
         return getURProgress(sec, major, minor)
     end
     
-    get '/bySec/:sec/:major/:minor' do
+    get '/bySec/:sec/:num' do
         sec = params[:sec]
         num = params[:num]
         if num.length != 8

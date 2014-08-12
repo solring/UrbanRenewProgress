@@ -51,7 +51,9 @@ def filterMsg(content)
 
 end
 def getURProgress(sec, num_major, num_minor)
-    
+
+    puts "#{sec}, #{num_major}, #{num_minor}"
+
     uri1 = 'http://www.gis.udd.taipei.gov.tw/r_progress.aspx'
     uri2 = "http://163.29.37.171/planMap/showland_uro.aspx"
     client = HTTPClient.new
@@ -89,8 +91,8 @@ def getURProgress(sec, num_major, num_minor)
         #'optSect' => sec,
         #'radKind' => "radKind2",
         'radKind' => "radKind1",
-        'txtMono1' => num_major,
-        'txtSbno1' => num_minor
+        'txtMono' => num_major,
+        'txtSbno' => num_minor
     }
 
 # the first GET to get website content
@@ -111,7 +113,6 @@ def getURProgress(sec, num_major, num_minor)
     puts '--------------- GET 2 --------------------'
     res = client.get('http://163.29.37.171/planMap/showland_uro.aspx', header)
     content = res.content
-    puts content
 
     puts '--------------- POST 2 ------------------'
     #viewstate, evalidate = getArguments(content)
