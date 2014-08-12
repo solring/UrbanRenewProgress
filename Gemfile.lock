@@ -76,5 +76,6 @@ DEPENDENCIES
   httpclient
   json
   nokogiri
+  rack
   sinatra
   sinatra-contrib

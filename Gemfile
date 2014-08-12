@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rackup'
+gem 'rack'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'json'
