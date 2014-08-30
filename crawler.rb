@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'httpclient'
 require 'nokogiri'
+require 'json'
 
 def getArguments(content)
 
@@ -42,14 +43,45 @@ end
 
 def filterMsg(content)
     doc = Nokogiri::HTML(content)
-    msg = doc.css("#labMsg")
-    if msg.length < 1
-        return "ERROR: span labMsg does not exist"
+	
+    msg = ""
+	msg_tag = doc.css("#labMsg")
+	if msg_tag.length > 0
+		msg = msg_tag.text
+	end
+	
+	table = doc.at_css("#grdQuery")
+
+	if table.length < 1
+        #return "ERROR: span labMsg does not exist"
+		return "ERROR: table grdQuery does not exist"
     else
-        return msg.text
+		rows = table.xpath('//tbody//tr')
+		if rows.length >= 2
+		
+			cols = rows[1].xpath('//td')
+			
+			query = cols[0].text
+			id = cols[1].text
+			name = cols[2].text
+			status = cols[3].text
+			detail = cols[4].at_xpath("//p//a").attr('href')
+			
+			data = {
+				:query => query,
+				:id => id,
+				:name => name,
+				:status => status,
+				:msg => msg
+			}
+			return data.to_json
+		else
+			return "ERROR: table empty"
+		end
     end
 
 end
+
 def getURProgress(sec, num_major, num_minor)
 
     puts "#{sec}, #{num_major}, #{num_minor}"
