@@ -1,14 +1,14 @@
 UrbanRenewProgress
 =================
-  API and crawler for http://www.gis.udd.taipei.gov.tw/r_progress.aspx
+  API and crawler for http://www.gis.udd.taipei.gov.tw/r_progress.aspx<br />
   Returns query results in json format
 
 APIs 
 ------------------
-  http://urban-renew-progress.herokuapp.com/bySec/[section name]/[major #]/[minor #]
-  http://urban-renew-progress.herokuapp.com/bySec/[section name]/[merged #]
-  http://urban-renew-progress.herokuapp.com/byArea/[dist name]/[section name]/[major #]/[minor #]
-  http://urban-renew-progress.herokuapp.com/byArea/[dist name]/[section name]/[merged #]
+  http://urban-renew-progress.herokuapp.com/bySec/[section name]/[major #]/[minor #] <br />
+  http://urban-renew-progress.herokuapp.com/bySec/[section name]/[merged #] <br />
+  http://urban-renew-progress.herokuapp.com/byArea/[dist name]/[section name]/[major #]/[minor #] <br />
+  http://urban-renew-progress.herokuapp.com/byArea/[dist name]/[section name]/[merged #] <br />
 
 Result Format
 ------------------
