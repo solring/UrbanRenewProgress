@@ -12,12 +12,16 @@ if __name__=='__main__':
         print "start from %d" % offset
     
     with open('TPE_public_land.csv', 'r') as fd:
+        print 'read TPE_public_land.csv'
         lines = fd.readlines()[offset:]
+        print "number of cases: %d" % len(lines)
+
         fd.close()
         
         fdout = io.open('TPE_public_land_renew.csv', mode="w", encoding="utf8")
         
         for line in lines:
+            print 'parse'
             cols = line.strip().split(',')
             sec = cols[3].decode('utf8')
             id = cols[4]
@@ -31,7 +35,7 @@ if __name__=='__main__':
             
             fdout.write("%s, %s, %s\n" %(sec, id, msg))
             
-            sleep(5)
+            sleep(3)
         
         fdout.close()
             

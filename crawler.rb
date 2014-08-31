@@ -43,41 +43,50 @@ end
 
 def filterMsg(content)
     doc = Nokogiri::HTML(content)
+    
+    result = {:msg => "", :cases => [] }
 	
-    msg = ""
-	msg_tag = doc.css("#labMsg")
+    # Get the description of query result
+    msg_tag = doc.css("#labMsg")
 	if msg_tag.length > 0
-		msg = msg_tag.text
+		result[:msg] = msg_tag.text
 	end
 	
+    # Parse the result table
 	table = doc.at_css("#grdQuery")
 
-	if table.length < 1
-        #return "ERROR: span labMsg does not exist"
+	if table == nil
 		return "ERROR: table grdQuery does not exist"
     else
-		rows = table.xpath('//tbody//tr')
-		if rows.length >= 2
+		rows = table.xpath('tr')
+
+        rows.each do |row|
 		
-			cols = rows[1].xpath('//td')
+			cols = row.xpath('td')
 			
-			query = cols[0].text
-			id = cols[1].text
-			name = cols[2].text
-			status = cols[3].text
-			detail = cols[4].at_xpath("//p//a").attr('href')
-			
+			query = cols[0].text.gsub("&nbsp;", "")
+			next if query.length < 5
+            id = cols[1].text.gsub("&nbsp;", "")
+			name = cols[2].text.gsub("&nbsp;", "")
+			status = cols[3].text.gsub("&nbsp;", "")
+
+            if id.empty?
+                detail = "http://www.gis.udd.taipei.gov.tw/ua_frmEasyCase.aspx?case_code=%s"     % id
+            else
+                detail = ""
+            end
+
 			data = {
 				:query => query,
 				:id => id,
 				:name => name,
 				:status => status,
-				:msg => msg
-			}
-			return data.to_json
-		else
-			return "ERROR: table empty"
-		end
+                :detail => detail
+            }
+            
+            result[:cases] << data 
+	    end
+        return result.to_json
     end
 
 end
