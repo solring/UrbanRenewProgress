@@ -1,5 +1,4 @@
-require 'rack'
-require 'rubygems'
+#\ -s puma
 require './app'
 
 run UrbanRenewProgress.new
