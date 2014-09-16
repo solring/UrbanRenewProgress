@@ -1,6 +1,6 @@
 UrbanRenewProgress
 =================
-  API and crawler for http://www.gis.udd.taipei.gov.tw/r_progress.aspx<br/>
+  Realtime API and crawler for http://www.gis.udd.taipei.gov.tw/r_progress.aspx<br/>
   Returns query results in json format
 
 APIs 
@@ -28,4 +28,7 @@ Result Format
     }
 
 
-//in construction
+Todo
+------------------
+  - Build from Database to improve performance (note: currently data are retrieved everytime after receiving a query)
+  - Daily update of database
