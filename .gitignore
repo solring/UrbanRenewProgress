@@ -1,2 +1,6 @@
 *.DS_Store
 *.swp
+*.gitignore
+data/GeoJSON*
+data/split.py
+data/merge.py

@@ -1,3 +1,7 @@
+#============================================
+# Offline crawler through URP API on Heroku
+# Solring Lin 2014/09/27
+#============================================
 import requests
 import io
 from urllib import quote
@@ -21,11 +25,15 @@ if __name__=='__main__':
         fdout = io.open('TPE_public_land_renew.csv', mode="w", encoding="utf8")
         
         for line in lines:
-            print 'parse'
             cols = line.strip().split(',')
+            
+            # Get section string & land number
             sec = cols[3].decode('utf8')
-            id = cols[4]
-            url = "http://urban-renew-progress.herokuapp.com/bySec/%s/%s/%s" % ( quote(sec.encode('utf8')), id[:4], id[4:] )
+            num = cols[4]
+            if len(num) < 8: num = '0'*(8-len(num)) + num
+
+            # Send requests
+            url = "http://urban-renew-progress.herokuapp.com/bySec/%s/%s/%s" % ( quote(sec.encode('utf8')), num[:4], num[4:] )
             print url
             
             res = requests.get(url)
