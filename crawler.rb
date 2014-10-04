@@ -69,12 +69,9 @@ def filterMsg(content)
             id = cols[1].text.gsub("&nbsp;", "")
 			name = cols[2].text.gsub("&nbsp;", "")
 			status = cols[3].text.gsub("&nbsp;", "")
-
-            if id.empty?
-                detail = "http://www.gis.udd.taipei.gov.tw/ua_frmEasyCase.aspx?case_code=%s"     % id
-            else
-                detail = ""
-            end
+            
+            detail_raw = cols[4].xpath("//p/a")
+            detail = detail_raw.attr('href')
 
 			data = {
 				:query => query,
@@ -92,6 +89,9 @@ def filterMsg(content)
 end
 
 def getURProgress(sec, num_major, num_minor)
+
+    num_major = '0'*(4-num_major.length) + num_major
+    num_minor = '0'*(4-num_minor.length) + num_minor
 
     puts "#{sec}, #{num_major}, #{num_minor}"
 
@@ -167,7 +167,7 @@ def getURProgress(sec, num_major, num_minor)
     return filterMsg(res.content)
 end
 
-#puts getURProgress('永昌段一小段', '0031', '0004')
+#puts getURProgress('圓環段一小段', '509', '0000')
 
 
 

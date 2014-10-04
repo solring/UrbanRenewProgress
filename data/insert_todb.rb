@@ -17,7 +17,7 @@ db = mongo_client.db("app28378937")
 db.authenticate("solring", "sl460852")
 
 collection = db.collection("TPEPOP-URP")
-
+collection.drop()
 
 fd = open(ARGV[0], 'r')
 jdatas = JSON.parse(fd.read())

@@ -4,3 +4,4 @@
 data/GeoJSON*
 data/split.py
 data/merge.py
+batch-crawlers/*.csv
