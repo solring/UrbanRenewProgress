@@ -2,6 +2,8 @@ UrbanRenewProgress
 =================
   Realtime API and crawler for http://www.gis.udd.taipei.gov.tw/r_progress.aspx<br/>
   Returns query results in json format
+ 
+  license: CC BY
 
 APIs 
 ------------------
@@ -14,6 +16,8 @@ Result Format
 ------------------
 ### JSON
     {
+        "section": section name of the land
+        "number" :  full land number of the land
         "msg" : result description
         "cases" :
         [
@@ -26,6 +30,12 @@ Result Format
           ...
         ]
     }
+
+
+Data on Google fusiontable
+------------------
+https://www.google.com/fusiontables/DataSource?docid=13ojWugFOcdvgs8vReoQTXM6Ux5IiJkmAdwqKHqjQ#rows:id=1
+
 
 
 Todo
