@@ -1,5 +1,10 @@
 UrbanRenewProgress
 =================
+  **NOTE: The official data source is currently down!**
+  
+  ***New data source*** <br />
+  http://data.taipei/opendata/datalist/datasetMeta?oid=560b633f-4ca7-4e37-957a-53879eccf5ea
+  
   Realtime API and crawler for http://www.gis.udd.taipei.gov.tw/r_progress.aspx<br/>
   Returns query results in json format
  
